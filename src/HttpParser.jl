@@ -78,7 +78,8 @@ type ParserSettings
 end
 
 function show(io::IO,p::Parser)
-    print(io,"HttpParser")
+    print(io,"HTTP/$(p.http_major).$(p.http_minor), ")
+    print(io,"Content-Length: $(p.content_length)")
 end
 
 # A helper function to print the internal values of a request
@@ -103,9 +104,9 @@ end
 
 # Run a request through a parser with specific callbacks on the settings instance.
 function http_parser_execute(parser::Parser, settings::ParserSettings, request)
-    ccall((:http_parser_execute, lib), Csize_t, 
-            (Ptr{Parser}, Ptr{ParserSettings}, Ptr{Uint8}, Csize_t,), 
-            &parser, &settings, convert(Ptr{Uint8}, pointer(request)), sizeof(request))
+    ccall((:http_parser_execute, lib), Csize_t,
+           (Ptr{Parser}, Ptr{ParserSettings}, Cstring, Csize_t,),
+            Ref(parser), Ref(settings), convert(Cstring, pointer(request)), sizeof(request))
     if errno(parser) != 0
         throw(HttpParserError(errno(parser)))
     end

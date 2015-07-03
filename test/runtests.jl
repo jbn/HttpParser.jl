@@ -41,8 +41,8 @@ r = Request("", "", Dict{String,String}(), "")
 function on_message_begin(parser)
     # Clear the resource when the message starts
     r.resource = ""
-    return 0     
-end     
+    return 0
+end
 
 function on_url(parser, at, len)
     # Concatenate the resource for each on_url callback
@@ -73,7 +73,7 @@ end
 function on_headers_complete(parser)
     p = unsafe_load(parser)
     # get first two bits of p.type_and_flags
-    
+
     # The parser type are the bottom two bits
     # 0x03 = 00000011
     ptype = p.type_and_flags & 0x03
@@ -145,7 +145,7 @@ init(DUMBFUCK)
 init(TWO_CHUNKS_MULT_ZERO_END)
 @test r.method == "POST"
 @test r.resource == "/two_chunks_mult_zero_end"
-@test r.data == "hello\r\n5 world\r\n6"
+@test r.data == "hello world"
 init(WEBSOCK)
 @test r.method == "DELETE"
 @test r.resource == "/chat"
