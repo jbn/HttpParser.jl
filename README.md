@@ -1,6 +1,6 @@
 # HttpParser.jl
 
-This package provides a Julia wrapper around Joyent's [http-parser](https://github.com/joyent/http-parser) library.
+This package provides a Julia wrapper around Joyent's [http-parser](https://github.com/joyent/http-parser) library (v2.5.0).
 
 [![Build Status](https://travis-ci.org/JuliaWeb/HttpParser.jl.svg?branch=master)](https://travis-ci.org/JuliaWeb/HttpParser.jl)
 [![Coverage Status](https://coveralls.io/repos/JuliaWeb/HttpParser.jl/badge.svg?branch=master)](https://coveralls.io/r/JuliaWeb/HttpParser.jl?branch=master)
@@ -13,8 +13,9 @@ This package provides a Julia wrapper around Joyent's [http-parser](https://gith
 
 ### Installing libhttp-parser as a shared library manually
 
-1. clone https://github.com/joyent/http-parser
+1. `git clone https://github.com/joyent/http-parser`
 2. `cd http-parser`
+2. `git checkout v2.5.0`
 3. `make library # Outputs a .so file, should be a .dylib on OS X`
 4. move the `libhttp_parser.so` to `/usr/local/lib` (rename to `libhttp_parser.dylib` if on OS X)
 
